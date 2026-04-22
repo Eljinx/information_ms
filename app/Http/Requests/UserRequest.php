@@ -25,6 +25,8 @@ class UserRequest extends FormRequest
                 'confirmed',
                 Password::min(8),
             ],
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['exists:roles,id'],
         ];
     }
 }

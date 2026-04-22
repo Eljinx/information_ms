@@ -16,12 +16,13 @@
             </a>
 
             <a
-                href="{{ route('users.create') }}"
-                class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition {{ request()->routeIs('users.create') ? 'bg-white text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }}"
+                href="{{ route('roles-and-permissions.index') }}"
+                class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition {{ request()->routeIs('roles-and-permissions.*') ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white' }}"
             >
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white/10">+</span>
-                <span>Create User</span>
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white/10">R</span>
+                <span>Roles & Permissions</span>
             </a>
+            
         </nav>
 
         <div class="border-t border-slate-800 px-6 py-5 flex-shrink-0">

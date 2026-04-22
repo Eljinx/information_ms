@@ -61,6 +61,35 @@
             @if (! $isEdit) required @endif
         >
     </div>
+
+    <div class="md:col-span-2">
+        <label class="mb-4 block text-sm font-semibold text-slate-700">Assign Roles</label>
+        <div class="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            @if ($roles->isEmpty())
+                <p class="text-sm text-slate-500">No roles available. Create roles first.</p>
+            @else
+                @foreach ($roles->chunk(3) as $chunk)
+                    <div class="grid gap-4 md:grid-cols-3">
+                        @foreach ($chunk as $role)
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    name="roles[]"
+                                    value="{{ $role->id }}"
+                                    @checked(in_array($role->id, $userRoles ?? []))
+                                    class="h-4 w-4 rounded border-slate-300 text-emerald-600 shadow-sm focus:ring-emerald-500"
+                                >
+                                <span class="text-sm text-slate-700">{{ $role->name }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                @endforeach
+            @endif
+        </div>
+        @error('roles.*')
+            <p class="mt-2 text-sm text-rose-600">One or more selected roles are invalid.</p>
+        @enderror
+    </div>
 </div>
 
 <div class="mt-8 flex items-center gap-3">

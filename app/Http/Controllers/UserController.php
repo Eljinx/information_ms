@@ -8,12 +8,18 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
     public function index(Request $request): View|JsonResponse
     {
+
+        // if (!auth()->user()->can('view roles and permissions')) {
+        //     abort(403);
+        // }
+
         if ($request->ajax()) {
             return DataTables::eloquent(User::query()->select(['id', 'name', 'email', 'created_at']))
                 ->addIndexColumn()
@@ -30,12 +36,17 @@ class UserController extends Controller
     {
         return view('pages.users.create', [
             'user' => new User(),
+            'roles' => Role::all(),
         ]);
     }
 
     public function store(UserRequest $request): RedirectResponse
     {
-        User::create($request->validated());
+        $user = User::create($request->validated());
+
+        if ($request->has('roles') && is_array($request->roles)) {
+            $user->roles()->sync($request->roles);
+        }
 
         return redirect()
             ->route('users.index')
@@ -44,12 +55,17 @@ class UserController extends Controller
 
     public function show(User $user): View
     {
+        $user->load('roles');
         return view('pages.users.show', compact('user'));
     }
 
     public function edit(User $user): View
     {
-        return view('pages.users.edit', compact('user'));
+        return view('pages.users.edit', [
+            'user' => $user,
+            'roles' => Role::all(),
+            'userRoles' => $user->roles->pluck('id')->toArray(),
+        ]);
     }
 
     public function update(UserRequest $request, User $user): RedirectResponse
@@ -61,6 +77,12 @@ class UserController extends Controller
         }
 
         $user->update($validated);
+
+        if ($request->has('roles') && is_array($request->roles)) {
+            $user->roles()->sync($request->roles);
+        } else {
+            $user->roles()->sync([]);
+        }
 
         return redirect()
             ->route('users.index')
