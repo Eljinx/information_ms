@@ -16,21 +16,18 @@
 
         @livewireStyles
     </head>
-    <body class="font-poppins antialiased">
-        <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
+    <body class="font-sans antialiased bg-white dark:bg-gray-900">
+        <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
             <!-- Animated Background Shapes -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
-                <div class="absolute top-0 left-0 w-96 h-96 bg-[#016000] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-                <div class="absolute top-0 right-0 w-96 h-96 bg-[#FFD700] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
-                <div class="absolute -bottom-8 left-20 w-96 h-96 bg-[#5A4C00] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse animation-delay-4000"></div>
+                <div class="absolute top-0 left-0 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
+                <div class="absolute top-0 right-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse animation-delay-2000"></div>
+                <div class="absolute -bottom-8 left-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse animation-delay-4000"></div>
             </div>
 
             <!-- Content -->
-            <div class="relative z-10">
-
-                @yield('content')
-
-                @include('partials.app-footer')
+            <div class="relative z-10 min-h-screen flex flex-col">
+                {{ $slot }}
             </div>
         </div>
 

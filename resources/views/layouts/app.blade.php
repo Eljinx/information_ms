@@ -19,7 +19,7 @@
         <div class="min-h-screen lg:flex">
             @include('partials.sidebar')
 
-            <div class="flex min-h-screen min-w-0 flex-1 flex-col">
+            <div class="flex min-h-screen min-w-0 flex-1 flex-col lg:ml-72">
                 @include('partials.app-header')
 
                 <main class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
